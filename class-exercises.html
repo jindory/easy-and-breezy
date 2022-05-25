@@ -21,10 +21,11 @@
         this.gender = gender;
         this.interests = interests;
       };
-      // 인스턴스 만들긔
+      // 인스턴스 만들기
       let person1 = new Person('Tammi', 'Smith', 32, 'neutral', ['music', 'skiing', 'kickboxing']);
       var person2 = Object.create(person1);
-
+      let person3 = new person1.constructor('Karen', 'Stephenson', 26, 'female', ['playing drums', 'mountain climbing']);
+      
       // this.bio = function() {
       //   // 먼저 문자열을 정의하고 부분과 동일하게 만듭니다.
       //   // 우리가 알고있는 바이오는 항상 동일합니다.
