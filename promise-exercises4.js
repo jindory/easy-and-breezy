@@ -30,6 +30,18 @@ getData().then().catch(function(err){
 
 
 /* 에러 처리는 가급적 catch()를 사용하잣 */
+
+new Promise((resolve, reject) => {
+throw new Error("Whoops!");
+}).catch(alert); // Error: Whoops!
+    
+new Promise((resolve, reject) => {
+reject(new Error("Whoops!"));
+}).catch(alert); // Error: Whoops!
+//위 두 코드는 동일하게 작동하지만.. .catch은 명시적 거부를 포착할 뿐만 아니라 위의 처리기에서 우발적인 오류도 포착 (?)
+//뭔소린디.. 
+
+
 function getData(){
     return new Promise((resolve, reject){
         resolve('hi');
@@ -43,3 +55,5 @@ getData()
     .catch(function(err){
         console.log('then error :', err);
     });
+
+
