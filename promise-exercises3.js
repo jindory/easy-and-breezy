@@ -38,7 +38,7 @@ getData()
     .then(function(){
         //...
     })
-    .then(fucntion(){
+    .then(function(){
         //...
     });
 
