@@ -62,3 +62,33 @@ new Promise((resolve, reject)=>{
 .then(function(result){ 
     console.log(result); //31
 });
+
+
+//실무에서 있을 법한 연결 사례
+getData(userInfo)
+    .then(parseValue)
+    .then(auth)
+    .then(diapaly);
+//userInfo는 사용자 정보가 담긴 객체를 의미하고,
+//parseValue, auth, display는 각각 프로미스를 반환해주는 함수라고 가정
+
+var userInfo ={
+    id:'test@abc.com',
+    pw:'****'
+}
+
+function parseValue(){
+    return new Promise({
+        //...
+    })
+}
+function auth(){
+    return new Promise({
+        //...
+    })
+}
+function diapaly(){
+    return new Promise({
+        //...
+    })
+}
