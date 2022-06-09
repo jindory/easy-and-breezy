@@ -8,7 +8,15 @@ const Tweets = () => {
   // TODO : 새로 트윗을 작성하고 전송할 수 있게 useState를 적절히 활용하세요.
   const [username, setUsername] = useState('');
   const [msg, setMsg] = useState('');
+  const [filterUser, setFilerUser] = useState('');
   const [data, setData] = useState(dummyTweets);
+  
+  const userArr = [...new Set(data.map(data=>data.username))];
+  const optUserList = userArr.map((username, idx) => {
+       return (
+        <option key={idx} value={username}>{username}</option>
+       )
+    })
 
   const handleButtonClick = (event) => {
     const tweet = {
@@ -33,6 +41,7 @@ const Tweets = () => {
   const handleChangeMsg = (event) => {
     return setMsg(event.target.value);
   };
+
 
   return (
     <React.Fragment>
@@ -72,7 +81,12 @@ const Tweets = () => {
           </div>
         </div>
       </div>
-      <div className="tweet__selectUser"></div>
+      <div className="tweet__selectUser">
+        <select>
+          <option> --선택해주세용-- </option>
+          {optUserList}
+        </select>
+      </div>
       <ul className="tweets">
         {data.map((data) => {
           return (
