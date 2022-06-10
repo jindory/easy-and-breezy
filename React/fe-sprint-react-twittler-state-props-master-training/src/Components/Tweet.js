@@ -1,7 +1,7 @@
 import React from 'react';
 import './Tweet.css';
 
-const Tweet = ({ tweet }) => {
+const Tweet = ({ tweet, deleteHandler }) => {
   const parsedDate = new Date(tweet.createdAt).toLocaleDateString('ko-kr');
 
   return (
@@ -14,6 +14,9 @@ const Tweet = ({ tweet }) => {
           <div className="tweet__userInfo--wrapper">
             <span className="tweet__username">{tweet.username}</span>
             <span className="tweet__createdAt">{parsedDate}</span>
+          </div>
+          <div className="tweet__userInfo--buttonWrapper">
+            <button className="tweet__deleteButton" onClick={deleteHandler}><i className="far fa-trash-alt"></i></button>
           </div>
         </div>
         <div className="tweet__message">

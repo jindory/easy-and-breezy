@@ -9,6 +9,8 @@ const Tweets = () => {
   const [msg, setMsg] = useState('');
   const [filterUser, setFilerUser] = useState('');
   const [data, setData] = useState(dummyTweets);
+  const [idxNum, setIdxNum] = useState(data.length+1);
+
   
   const userArr = [...new Set(data.map(data=>data.username))];
   const optUserList = userArr.map((username, idx) => {
@@ -19,15 +21,16 @@ const Tweets = () => {
 
   const handleButtonClick = (event) => {
     const tweet = {
-      id: data.length+1,
+      id:idxNum,
       username: username,
       picture: `https://randomuser.me/api/portraits/men/98.jpg`,
       content: msg,
       createdAt: new Date(),
       updatedAt: new Date(),
     };
-
+    
     const newData = [tweet, ...data];
+    setIdxNum(idxNum => idxNum+1);
     setData(newData);
     // TODO : Tweet button 엘리먼트 클릭시 작동하는 함수를 완성하세요.
     // 트윗 전송이 가능하게 작성해야 합니다.
@@ -38,7 +41,7 @@ const Tweets = () => {
   }
 
   const handleChangeUser = (event) => {
-    return setUsername(event.target.value);
+    setUsername(event.target.value);
   };
 
   const handleChangeMsg = (event) => {
@@ -46,12 +49,19 @@ const Tweets = () => {
   };
 
 
+  const tweetDelete = (event) => {
+    const conId = event.target.closest('li').getAttribute('id');
+    const newData = data.filter(data => String(data.id) !== conId );
+    setData(newData);
+    // setData(newData);
+  }
+
   //옵션-전체 선택
-  const filterSelectTotal = data.map((data) => { return ( <Tweet tweet={data} key={data.id}/> )})
+  const filterSelectTotal = data.map((data) => { return ( <Tweet tweet={data} deleteHandler={tweetDelete} key={data.id}/> )})
    
   //옵션-유저 선택
   const filterSelectUser = data.filter(tweet => filterUser === tweet.username)
-  .map((data) => { return ( <Tweet tweet={data} key={data.id}/> )});
+  .map((data) => { return ( <Tweet tweet={data} deleteHandler={tweetDelete} key={data.id}/> )});
 
   return (
     <React.Fragment>
