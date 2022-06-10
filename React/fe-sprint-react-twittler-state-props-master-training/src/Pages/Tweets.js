@@ -5,7 +5,6 @@ import './Tweets.css';
 import dummyTweets from '../static/dummyData';
 
 const Tweets = () => {
-  // TODO : 새로 트윗을 작성하고 전송할 수 있게 useState를 적절히 활용하세요.
   const [username, setUsername] = useState('');
   const [msg, setMsg] = useState('');
   const [filterUser, setFilerUser] = useState('');
@@ -34,6 +33,10 @@ const Tweets = () => {
     // 트윗 전송이 가능하게 작성해야 합니다.
   };
 
+  const filteredHandleUser = (event) => {
+    setFilerUser(event.target.value);
+  }
+
   const handleChangeUser = (event) => {
     return setUsername(event.target.value);
   };
@@ -42,6 +45,13 @@ const Tweets = () => {
     return setMsg(event.target.value);
   };
 
+
+  //옵션-전체 선택
+  const filterSelectTotal = data.map((data) => { return ( <Tweet tweet={data} key={data.id}/> )})
+   
+  //옵션-유저 선택
+  const filterSelectUser = data.filter(tweet => filterUser === tweet.username)
+  .map((data) => { return ( <Tweet tweet={data} key={data.id}/> )});
 
   return (
     <React.Fragment>
@@ -82,17 +92,13 @@ const Tweets = () => {
         </div>
       </div>
       <div className="tweet__selectUser">
-        <select>
-          <option> --선택해주세용-- </option>
+        <select onChange={filteredHandleUser}>
+          <option value=""> --선택해주세용-- </option>
           {optUserList}
         </select>
       </div>
       <ul className="tweets">
-        {data.map((data) => {
-          return (
-          <Tweet tweet={data} key={data.id}/>
-          )
-        })}
+         {filterUser === "" ? filterSelectTotal : filterSelectUser}
       </ul>
       <Footer />
     </React.Fragment>
